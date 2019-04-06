@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: google-pause
+  namespace: demo
+  labels:
+    app: google-pause
+  annotations:
+    flux.weave.works/automated: "true"
+    flux.weave.works/tag.init: regexp:^3.*
+    flux.weave.works/tag.podinfod: semver:~1.3
+spec:
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: podinfo
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+      labels:
+        app: podinfo
+    spec:
+      initContainers:
+      - name: init
+        image: alpine:3.5
+        command:
+        - sleep
+        - "1"
+      containers:
+      - name: pause
+        image: google/pause:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: PODINFO_UI_COLOR
+          value: blue
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 128Mi
+          requests:
+            cpu: 10m
+            memory: 64Mi
