@@ -7,7 +7,7 @@ metadata:
   labels:
     app: pacman
   annotations:
-    flux.weave.works/automated: "false"
+    flux.weave.works/automated: "true"
 spec:
   strategy:
     rollingUpdate:
