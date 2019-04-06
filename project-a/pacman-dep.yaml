@@ -8,6 +8,7 @@ metadata:
     app: pacman
   annotations:
     flux.weave.works/automated: "true"
+    flux.weave.works/tag.<containername>: glob:latest
 spec:
   strategy:
     rollingUpdate:
