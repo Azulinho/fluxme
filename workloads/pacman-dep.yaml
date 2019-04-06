@@ -2,10 +2,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: google-pause
-  namespace: demo
+  name: pacman
+  namespace: project-a
   labels:
-    app: google-pause
+    app: pacman
   annotations:
     flux.weave.works/automated: "false"
 spec:
@@ -15,13 +15,13 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: pause
+      app: pacman
   template:
     metadata:
       labels:
-        app: pause
+        app: pacman
     spec:
       containers:
-      - name: pause
-        image: google/pause:latest
+      - name: pacman
+        image: nbaillie/pacman:latest
         imagePullPolicy: IfNotPresent

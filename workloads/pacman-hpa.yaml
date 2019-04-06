@@ -1,15 +1,15 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: podinfo
-  namespace: demo
+  name: pacman
+  namespace: project-a
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: podinfo
-  minReplicas: 2
-  maxReplicas: 4
+    name: pacman
+  minReplicas: 1
+  maxReplicas: 2
   metrics:
   - type: Resource
     resource:
