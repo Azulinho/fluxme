@@ -7,9 +7,7 @@ metadata:
   labels:
     app: google-pause
   annotations:
-    flux.weave.works/automated: "true"
-    flux.weave.works/tag.init: regexp:^3.*
-    flux.weave.works/tag.podinfod: semver:~1.3
+    flux.weave.works/automated: "false"
 spec:
   strategy:
     rollingUpdate:
@@ -17,31 +15,13 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: podinfo
+      app: pause
   template:
     metadata:
-      annotations:
-        prometheus.io/scrape: "true"
       labels:
-        app: podinfo
+        app: pause
     spec:
-      initContainers:
-      - name: init
-        image: alpine:3.5
-        command:
-        - sleep
-        - "1"
       containers:
       - name: pause
         image: google/pause:latest
         imagePullPolicy: IfNotPresent
-        env:
-        - name: PODINFO_UI_COLOR
-          value: blue
-        resources:
-          limits:
-            cpu: 1000m
-            memory: 128Mi
-          requests:
-            cpu: 10m
-            memory: 64Mi
